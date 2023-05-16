@@ -27,13 +27,66 @@ char	*rl_get(char *prompt)
 	return (trimmed);
 }
 
-static void	new_prompt(int signum)
+static void	ctrl_c_handle(int signum)
 {
 	(void)signum;
 	printf("\n");
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+int	is_str_valid_float(char *str);
+int	amount_check(t_data *data, char *str)
+{
+	float	amount;
+
+	if (!is_str_valid_float(str))
+	{
+		printf("Error: Invalid number format.\n");
+		return (1);
+	}
+	amount = atof(str);
+	if (amount > data->balance)
+	{
+		printf("Error: Insufficient funds.\n");
+		return (1);
+	}
+	if (amount < data->scam_amount)
+	{
+		printf("Error: This account doesn't allow withdrawals under %s.\n", SCAM_AMOUNT);
+		return (1);
+	}
+	return (0);
+}
+
+int		char_is_num(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int		is_str_valid_float(char *str)
+{
+	int	i;
+	int	period_count;
+
+	i = 0;
+	if (!str[i] || !char_is_num(str[i]))
+		return (0);
+	period_count = 0;
+	while (str[i])
+	{
+		if (!(str[i] == '.' || char_is_num(str[i])))
+			return (0);
+		if (str[i] == '.')
+			period_count++;
+		if (str[i] == '.' && !str[i + 1])
+			return (0);
+		i++;
+	}
+	if (period_count > 1)
+		return (0);
+	return (1);
 }
 
 char	*strtrim(char const *s1, char const *set)
@@ -64,11 +117,19 @@ char	*strtrim(char const *s1, char const *set)
 	return (str);
 }
 
+int		is_withdrawing(t_data *data)
+{
+	return (data->program_mode == MODE_WITHDRAW_AMOUNT
+	|| data->program_mode == MODE_WITHDRAW_ADDR
+	|| data->program_mode == MODE_WITHDRAW_ADDR_2
+	|| data->program_mode == MODE_WITHDRAW_CONFIRM);
+}
+
 void	run_signal(int nb)
 {
 	if (nb == 1)
 	{
-		signal(SIGINT, &new_prompt);
+		signal(SIGINT, &ctrl_c_handle);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }

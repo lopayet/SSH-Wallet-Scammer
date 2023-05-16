@@ -8,7 +8,7 @@ READLINE_DIR	=	readline
 HEADERS			=	wshell.h var_list/var_list.h
 INCLUDE			=	-I . -I var_list -I $(READLINE_DIR)
 LIB_DIRS		=	-L $(READLINE_DIR)
-SRCS			=	wshell.c utils.c \
+SRCS			=	wshell.c utils.c display.c handle_input.c \
 					var_list/var_list.c var_list/var_list_fn.c
 
 OBJS			=	$(patsubst %.c,%.o,$(SRCS))
