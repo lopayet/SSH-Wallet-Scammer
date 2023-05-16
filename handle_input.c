@@ -36,6 +36,7 @@ int		handle_input(t_data *data, char *input)
 			}
 			else if (!strcmp(input, "r") || !strcmp(input, "R"))
 			{
+				set_exchange_rate(data);
 				data->program_mode = MODE_DEPOSIT;
 				data->redisplay = 1;
 			}
@@ -78,7 +79,7 @@ int		handle_input(t_data *data, char *input)
 
 		case MODE_WITHDRAW_CONFIRM:{
 			if ((!strcmp(input, "n") || !strcmp(input, "N"))
-				|| (strcmp(input, "y") || strcmp(input, "Y")))
+				|| (strcmp(input, "y") && strcmp(input, "Y")))
 				return (cancel_withdraw(data), 0);
 			sleep(3);
 			printf("\n%sThe entered address is either an invalid BTC address, or it is not a confirmed withdrawal address for your account.%s\n",

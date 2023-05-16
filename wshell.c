@@ -19,9 +19,13 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (1);
 	data = init_data(envp, argv);
+	curl_init(&data);
+	set_exchange_rate(&data);
 	wshell(&data);
 	free_var_list(&data.env_var_list);
 	rl_clear_history();
+	curl_easy_cleanup(data.curl_handle);
+	curl_global_cleanup();
 	return (0);
 }
 
@@ -56,7 +60,6 @@ void	wshell(t_data *data)
 	}
 }
 
-
 char	*get_prompt(t_data *data)
 {
 	char	str[512];
@@ -79,7 +82,6 @@ char	*get_prompt(t_data *data)
 	return (strdup("Enter option: "));
 }
 
-
 t_data	init_data(char **envp, char **argv)
 {
 	t_data	data;
@@ -87,6 +89,8 @@ t_data	init_data(char **envp, char **argv)
 	data.envp = envp;
 	data.argv = argv;
 	data.balance = atof(BALANCE);
+	data.rate = 26783.44;
+	data.last_rate_refresh = 0;
 	data.scam_amount = atof(SCAM_AMOUNT) - 0.000001;
 	strcpy(data.address, ADDRESS);
 	data.redisplay = 1;

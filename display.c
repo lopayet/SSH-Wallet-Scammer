@@ -27,7 +27,7 @@ You are currently not using 2FA, this is a major security risk!\n\
 
 void	display_bitcoin_balance(t_data *data)
 {
-	printf("BTC Balance: %s%f ($129489.17)%s\n\n", g_color_bright_green, data->balance, g_color_white);
+	printf("BTC Balance: %s%f ($%.2f)%s\n\n", g_color_bright_green, data->balance, data->balance * data->rate, g_color_white);
 }
 
 void	display_deposit_address(t_data *data)
@@ -74,46 +74,46 @@ void	display_history(t_data *data)
 
 	printf("\
 %sOnly transactions over 0.001 BTC are displayed here.\n\
-%sDate       Type         Address         Amount.%s\n", g_color_red, g_color_gray, g_color_white);
+%sDate         Type         Address         Amount.%s\n", g_color_red, g_color_gray, g_color_white);
 
 	printf("\
-01/07/23   Withdrawal   %sBC1Q....2V3N*%s   %s1.02975121%s\
+01/07/2023   Withdrawal   %sBC1Q....2V3N*%s   %s1.02975121%s\
 \n", g_color_green, g_color_white, g_color_red, g_color_white);
 
 	printf("\
-11/17/21   Deposit      %sBC1Q....2V3N*%s   %s0.00129562%s\
+11/17/2021   Deposit      %sBC1Q....2V3N*%s   %s0.00129562%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\
-08/20/21   Deposit      %sBC19....KaK4*%s   %s2.50526414%s\
+08/20/2021   Deposit      %sBC19....KaK4*%s   %s2.50526414%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\
-07/27/20   Withdrawal   %sBC1b....n6A5*%s   %s0.58330482%s\
+07/27/2020   Withdrawal   %sBC1b....n6A5*%s   %s0.58330482%s\
 \n", g_color_green, g_color_white, g_color_red, g_color_white);
 
 	printf("\
-04/01/19   Deposit      %sBC1b....n6A5*%s   %s0.00100000%s\
+04/01/2019   Deposit      %sBC1b....n6A5*%s   %s0.00100000%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\
-11/26/19   Deposit      %sBC19....KaK4*%s   %s0.83909679%s\
+11/26/2019   Deposit      %sBC19....KaK4*%s   %s0.83909679%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\
-01/21/18   Withdrawal   %sBC1Q....dDer*%s   %s1.33548585%s\
+01/21/2018   Withdrawal   %sBC1Q....dDer*%s   %s1.33548585%s\
 \n", g_color_green, g_color_white, g_color_red, g_color_white);
 
 	printf("\
-01/19/18   Deposit      %sBC1Q....dDer*%s   %s0.00100000%s\
+01/19/2018   Deposit      %sBC1Q....dDer*%s   %s0.00100000%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\
-06/23/17   Deposit      %sBC19....KaK4*%s   %s1.32548585%s\
+06/23/2017   Deposit      %sBC19....KaK4*%s   %s1.32548585%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\
-03/08/15   Deposit      %sBC1Q....Yb2d*%s   %s3.02675472%s\
+03/08/2015   Deposit      %sBC1Q....Yb2d*%s   %s3.02675472%s\
 \n", g_color_green, g_color_white, g_color_green, g_color_white);
 
 	printf("\n* = Address confirmed for withdrawals.\n\n");
@@ -122,7 +122,7 @@ void	display_history(t_data *data)
 void	clear_terminal(t_data *data)
 {
 	int	pid;
-
+	
 	pid = fork();
 	if (pid == -1)
 	{
