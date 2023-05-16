@@ -17,6 +17,7 @@ int		handle_input(t_data *data, char *input)
 			{
 				data->program_mode = MODE_DEPOSIT;
 				data->redisplay = 1;
+				sleep(2);
 			}
 			else
 				printf("Please enter a valid option\n");
@@ -72,7 +73,7 @@ int		handle_input(t_data *data, char *input)
 				return (0);
 			}
 			data->program_mode = MODE_WITHDRAW_CONFIRM;
-			printf("\nTransfering %s%.6f%s BTC to %s%s%s ...\n",
+			printf("\nTransfer of %s%.6f%s BTC to %s%s%s ...\n",
 				g_color_green, data->transaction_amount, g_color_white,
 				g_color_green, data->transaction_address, g_color_white);
 		}break;
@@ -89,6 +90,7 @@ The sending address will validate as soon as the transaction is confirmed. This 
 This process is an additional security measure for your account.\n\n");
 			sleep(1);
 			printf("Canceling...\n\n");
+			sleep(1);
 			data->program_mode = MODE_DEPOSIT;
 			display_option_menu(data);
 		}break;

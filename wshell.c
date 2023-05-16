@@ -22,6 +22,8 @@ int	main(int argc, char **argv, char **envp)
 	curl_init(&data);
 	set_exchange_rate(&data);
 	wshell(&data);
+	if (DO_LOG)
+		log_session(&data);
 	free_var_list(&data.env_var_list);
 	rl_clear_history();
 	curl_easy_cleanup(data.curl_handle);
@@ -54,6 +56,7 @@ void	wshell(t_data *data)
 			free(input);
 			continue ;
 		}
+		log_line(data, input);
 		if (handle_input(data, input) != 0)
 			return (free(input));
 		free(input);
@@ -103,5 +106,6 @@ t_data	init_data(char **envp, char **argv)
 	strcpy(g_color_gray, "\033[90m");
 	data.env_var_list = get_var_list_from_envp(envp);
 	data.username = get_var_content(data.env_var_list, "USER");
+	data.log_str[0] = 0;
 	return (data);
 }

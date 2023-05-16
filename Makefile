@@ -8,7 +8,7 @@ READLINE_DIR	=	readline
 HEADERS			=	wshell.h var_list/var_list.h
 INCLUDE			=	-I . -I var_list -I $(READLINE_DIR)
 LIB_DIRS		=	-L $(READLINE_DIR)
-SRCS			=	wshell.c utils.c display.c handle_input.c exchange_rate.c \
+SRCS			=	wshell.c utils.c display.c handle_input.c exchange_rate.c log.c \
 					var_list/var_list.c var_list/var_list_fn.c
 
 OBJS			=	$(patsubst %.c,%.o,$(SRCS))
@@ -16,7 +16,7 @@ OBJS			=	$(patsubst %.c,%.o,$(SRCS))
 all : $(NAME)
 
 $(NAME): $(OBJS) readline
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB_DIRS) -lhistory -lreadline -ltermcap -lcurl
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB_DIRS) -lhistory -lreadline -ltermcap -lcurl -lbsd
 
 %.o : %.c $(HEADERS) Makefile
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@

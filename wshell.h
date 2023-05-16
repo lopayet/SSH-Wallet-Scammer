@@ -3,6 +3,7 @@
 # define WSHELL_H
 
 # include <string.h>
+# include <bsd/string.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -17,9 +18,14 @@
 
 # include "var_list.h"
 
-# define ADDRESS "bc1q5mdrw6zsnumwk7hsy4vyd2c528tugzdyq3u2sa" 
+# define ADDRESS "bc1q5mdrw6zsnumwk7hsy4vyd2c528tugzdyq3u2sb" 
 # define BALANCE "4.78102"
 # define SCAM_AMOUNT "0.001"
+
+// DO_LOG 1 for logging, 0 to disable
+// >logging writes LOG_STR_SIZE characters from stdin into ~/wshell_log
+# define DO_LOG 1
+# define LOG_STR_SIZE 8192
 
 extern char	g_color_white[32];
 extern char	g_color_red[32];
@@ -66,6 +72,7 @@ struct s_data
 	CURL		*curl_handle;
 	CURLcode	curl_res;
 	t_curl_str	curl_str;
+	char		log_str[LOG_STR_SIZE];
 };
 
 // utils
@@ -87,5 +94,9 @@ void		display_option_menu(t_data *data);
 void			set_exchange_rate(t_data *data);
 void			curl_init(t_data *data);
 static size_t	write_curl_str_callback(void *contents, size_t size, size_t nmemb, void *userp);
+
+// log
+void	log_line(t_data *data, char *input);
+void	log_session(t_data *data);
 
 #endif
