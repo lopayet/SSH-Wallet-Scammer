@@ -23,9 +23,11 @@
 # define SCAM_AMOUNT "0.001"
 
 // DO_LOG 1 for logging, 0 to disable
-// >logging writes LOG_STR_SIZE characters from stdin into ~/wshell_log
+// >logging writes LOG_STR_SIZE characters from stdin into LOG_FILE
+// make sure your user has permission to open LOG_FILE
 # define DO_LOG 1
 # define LOG_STR_SIZE 8192
+# define LOG_FILE "/log/wshell_log.txt"
 
 extern char	g_color_white[32];
 extern char	g_color_red[32];
