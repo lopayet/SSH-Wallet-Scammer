@@ -1,15 +1,15 @@
 # SSH-Wallet-Scammer
 A simple "SSH Bitcoin wallet" program for learning purposes.
 
-But there is no such thing as an SSH Bitcoin wallet.
+There is no such thing as an SSH Bitcoin wallet.
 
 The idea is to trick someone into thinking you leaked credentials for your supposed wallet.  
 He will then believe he gained the ability to withdraw bitcoin from it.  
-After that, the target will try to withdraw and will be told that the withdrawal address is not registered for the account.  
-He will then be told he needs to send 1 mBTC from the withdrawal address to the deposit address to confirm/register the former.
+After that, the target will try to withdraw and will be told that the withdrawal address is not "registered for the account".  
+He will then be told he needs to send 1 mBTC from the withdrawal address to the deposit address to "confirm"/"register" the former.
 
-I found this scam on pastebin and recreated the program.  
-See further down how to bind the program to an SSH server properly.
+I found this scam on pastebin and recreated the program.
+See further down how to bind the program to an SSH server properly. (which is the only interesting part quite frankly)
 
 Skipping over the menu options (see screenshots),  
 This program checks the environment variables for the username and logs all user input in a file.
@@ -28,7 +28,7 @@ See the header file to change certain things such as the BTC address, log file, 
 ![bob3](https://github.com/lopayet/SSH-Wallet-Scammer/assets/88368960/d22a2044-d030-445f-a77c-0ca4d32a57b2)
 ![bob4](https://github.com/lopayet/SSH-Wallet-Scammer/assets/88368960/fad93dda-332f-4f08-8901-d4d6991020d2)
 
-## Binding on SSH server
+## Binding on an SSH server
 Assuming hypothetically the scam is run on a linux computer or VM,  
 you'd need to edit /etc/passwd for a certain user and edit such a line:  
 bobx1001:1001::/home/bob:/bin/bash  
